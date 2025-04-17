@@ -1,0 +1,97 @@
+{
+	"name": "pl_exepl",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Wait1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_First",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('v1')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait2",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('v2')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait3",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline1",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('v3')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"v1": {
+				"type": "Integer",
+				"defaultValue": 5
+			},
+			"v2": {
+				"type": "String",
+				"defaultValue": "6"
+			},
+			"v3": {
+				"type": "String",
+				"defaultValue": "7"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-04-07T14:05:55Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

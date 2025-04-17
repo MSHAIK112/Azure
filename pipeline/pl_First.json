@@ -1,0 +1,123 @@
+{
+	"name": "pl_First",
+	"properties": {
+		"description": "Practice 1",
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('v2')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait2",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('v2')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait3",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Wait1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('str')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait4",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "Wait1",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('fail')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Wait1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v2",
+					"value": 11
+				}
+			}
+		],
+		"variables": {
+			"v1": {
+				"type": "Integer",
+				"defaultValue": 10
+			},
+			"v2": {
+				"type": "Integer",
+				"defaultValue": 5
+			},
+			"fail": {
+				"type": "Integer",
+				"defaultValue": 3
+			},
+			"str": {
+				"type": "String",
+				"defaultValue": "5"
+			},
+			"vCon": {
+				"type": "Integer",
+				"defaultValue": 7
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-04-04T16:02:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

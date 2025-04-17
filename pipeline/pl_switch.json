@@ -1,0 +1,119 @@
+{
+	"name": "pl_switch",
+	"properties": {
+		"activities": [
+			{
+				"name": "Switch1",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@variables('varCon1')",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "Case1",
+							"activities": [
+								{
+									"name": "Wait3",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": {
+											"value": "@variables('varCon1')",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Wait4",
+									"type": "Wait",
+									"dependsOn": [
+										{
+											"activity": "Wait3",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": {
+											"value": "@variables('varCon4')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					],
+					"defaultActivities": [
+						{
+							"name": "Wait1",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": {
+									"value": "@variables('varDefault')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Wait2",
+							"type": "Wait",
+							"dependsOn": [
+								{
+									"activity": "Wait1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": {
+									"value": "@variables('varCon2')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"varDefault": {
+				"type": "String",
+				"defaultValue": "5"
+			},
+			"varCon1": {
+				"type": "String",
+				"defaultValue": "5"
+			},
+			"varCon2": {
+				"type": "String",
+				"defaultValue": "6"
+			},
+			"varCon3": {
+				"type": "String",
+				"defaultValue": "4"
+			},
+			"varCon4": {
+				"type": "String",
+				"defaultValue": "8"
+			},
+			"varCon5": {
+				"type": "String",
+				"defaultValue": "10"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-04-04T16:17:13Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

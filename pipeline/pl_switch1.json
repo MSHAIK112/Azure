@@ -1,0 +1,87 @@
+{
+	"name": "pl_switch1",
+	"properties": {
+		"description": "switch",
+		"activities": [
+			{
+				"name": "Switch1",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@variables('v1')",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "wait2",
+							"activities": [
+								{
+									"name": "Wait2",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 2
+									}
+								}
+							]
+						},
+						{
+							"value": "wait5",
+							"activities": [
+								{
+									"name": "Wait5",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 5
+									}
+								}
+							]
+						},
+						{
+							"value": "wait8",
+							"activities": [
+								{
+									"name": "Wait8",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 8
+									}
+								}
+							]
+						}
+					],
+					"defaultActivities": [
+						{
+							"name": "Wait1",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 2
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"v1": {
+				"type": "String",
+				"defaultValue": "wait8"
+			},
+			"v2": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-04-08T10:57:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

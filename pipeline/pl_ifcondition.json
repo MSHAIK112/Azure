@@ -1,0 +1,107 @@
+{
+	"name": "pl_ifcondition",
+	"properties": {
+		"description": "if condition",
+		"activities": [
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('Default'),variables('v1'))",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Wait2",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": {
+									"value": "@variables('v3')",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Wait1",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": {
+									"value": "@variables('v1')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Wait3",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "If Condition1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('v3')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait4",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "If Condition1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@variables('v2')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"v1": {
+				"type": "Integer",
+				"defaultValue": 3
+			},
+			"v2": {
+				"type": "Integer",
+				"defaultValue": 5
+			},
+			"v3": {
+				"type": "Integer",
+				"defaultValue": 9
+			},
+			"Default": {
+				"type": "Integer",
+				"defaultValue": 5
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-04-08T10:33:11Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
